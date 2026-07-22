@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Pinyon+Script&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-cursive: "Pinyon Script", cursive;
+
+  --color-bg-primary: #F7F6F3;
+  --color-bg-elevated: #FFFFFF;
+  --color-bg-deep: #1A2E1F;
+  --color-bg-deep-alt: #162718;
+  --color-text-primary: #1C1C1A;
+  --color-text-secondary: #6B6B65;
+  --color-text-inverse: #F7F6F3;
+  --color-accent: #2D6A4F;
+  --color-accent-hover: #245840;
+  --color-accent-light: #2D6A4F1A;
+  --color-accent-warm: #D4A853;
+  --color-accent-warm-hover: #C49A46;
+  --color-border: #E5E3DE;
+  --color-border-subtle: #EEEDEA;
+  --color-surface-tint: #EBE9E3;
+  --color-surface-tint-alt: #F0EEEA;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-heading {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}
+
+.font-cursive {
+  font-family: var(--font-cursive);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Noise grain overlay — attach to a fixed pseudo-element */
+.noise-overlay::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Custom scrollbar matching forest palette */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
+
+/* Selection style */
+::selection {
+  background-color: rgba(45, 106, 79, 0.15);
+  color: var(--color-accent);
+}

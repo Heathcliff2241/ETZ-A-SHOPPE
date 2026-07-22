@@ -1,0 +1,6 @@
+{
+  "name": "ETZ",
+  "description": "A hand-checked, sorted secondhand clothing shop based in Loong, Tabogon, Cebu. Good clothes, already lived in, still got plenty left to give.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
