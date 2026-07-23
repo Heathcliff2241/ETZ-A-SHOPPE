@@ -4,11 +4,13 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Check } from 'lucide-react';
 
+import { useApp } from '../providers/AppProvider';
+
 interface ContactProps {
-  shopPhone: string;
-  shopEmail: string;
-  shopFacebook: string;
-  shopGcash: string;
+  shopPhone?: string;
+  shopEmail?: string;
+  shopFacebook?: string;
+  shopGcash?: string;
   shopGcashName?: string;
   shopAddress?: string;
   ownerName?: string;
@@ -24,13 +26,13 @@ interface ContactProps {
 }
 
 export default function Contact({
-  shopPhone,
-  shopEmail,
-  shopFacebook,
-  shopGcash,
-  shopGcashName,
-  shopAddress = 'Tagbilaran City, Bohol, Philippines',
-  ownerName,
+  shopPhone: propPhone,
+  shopEmail: propEmail,
+  shopFacebook: propFB,
+  shopGcash: propGcash,
+  shopGcashName: propGcashName,
+  shopAddress: propAddress,
+  ownerName: propOwnerName,
   contactName,
   setContactName,
   contactEmail,
@@ -41,6 +43,14 @@ export default function Contact({
   handleContactSubmit,
   onNavigate
 }: ContactProps) {
+  const { settings } = useApp();
+  const shopPhone = propPhone || settings.shopPhone;
+  const shopEmail = propEmail || settings.shopEmail;
+  const shopFacebook = propFB || settings.shopFacebook;
+  const shopGcash = propGcash || settings.shopGcash;
+  const shopGcashName = propGcashName || settings.shopGcashName;
+  const shopAddress = propAddress || settings.shopAddress;
+  const ownerName = propOwnerName || settings.ownerName;
   return (
     <div
       className="max-w-4xl mx-auto px-4 py-10 w-full space-y-10"

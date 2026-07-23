@@ -8,7 +8,7 @@ const DEFAULT_SETTINGS = {
   shopName: 'ETZ A SHOPPE',
   ownerName: 'Cesar Esmero',
   shopTagline: 'Curated Thrift & Vintage Marketplace',
-  shopAddress: 'Tagbilaran City, Bohol, Philippines',
+  shopAddress: 'Tabogon, Cebu, Philippines',
   shopEmail: 'cesaresmero2@gmail.com',
   shopPhone: '+63 912 345 6789',
   shopFacebook: 'https://www.facebook.com/profile.php?id=100064749982511',
@@ -125,6 +125,47 @@ export function AppProvider({ children, initialProducts = [], initialSettings = 
     if (Object.keys(initialSettings).length > 0) {
       setSettings((prev) => ({ ...prev, ...initialSettings }));
     }
+
+    // 1. Load cached settings from localStorage
+    const stored = localStorage.getItem('etz_settings');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        setSettings((prev) => ({
+          ...prev,
+          ...parsed,
+          shopEmail: parsed.shopEmail || parsed.email || prev.shopEmail,
+          shopPhone: parsed.shopPhone || parsed.phone || prev.shopPhone,
+          shopFacebook: parsed.shopFacebook || parsed.facebook || prev.shopFacebook,
+          shopInstagram: parsed.shopInstagram || parsed.instagram || prev.shopInstagram,
+          shopGcash: parsed.shopGcash || parsed.gcash || prev.shopGcash,
+          shopGcashName: parsed.shopGcashName || parsed.gcashName || prev.shopGcashName,
+        }));
+      } catch {}
+    }
+
+    // 2. Fetch fresh live settings from API
+    fetch('/api/admin/public-settings')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data && typeof data === 'object') {
+          const fresh = {
+            shopName: data.shopName || DEFAULT_SETTINGS.shopName,
+            ownerName: data.ownerName || DEFAULT_SETTINGS.ownerName,
+            shopTagline: data.shopTagline || DEFAULT_SETTINGS.shopTagline,
+            shopAddress: data.shopAddress || DEFAULT_SETTINGS.shopAddress,
+            shopEmail: data.shopEmail || DEFAULT_SETTINGS.shopEmail,
+            shopPhone: data.shopPhone || DEFAULT_SETTINGS.shopPhone,
+            shopFacebook: data.shopFacebook || DEFAULT_SETTINGS.shopFacebook,
+            shopInstagram: data.shopInstagram || DEFAULT_SETTINGS.shopInstagram,
+            shopGcashName: data.shopGcashName || DEFAULT_SETTINGS.shopGcashName,
+            shopGcash: data.shopGcash || DEFAULT_SETTINGS.shopGcash,
+          };
+          setSettings((prev) => ({ ...prev, ...fresh }));
+          safeSet('etz_settings', fresh);
+        }
+      })
+      .catch(() => {});
   }, []);
 
   // Persist
@@ -134,7 +175,7 @@ export function AppProvider({ children, initialProducts = [], initialSettings = 
   useEffect(() => { safeSet('etz_wishlist', wishlist); }, [wishlist]);
   useEffect(() => { safeSet('etz_recently_viewed', recentlyViewed); }, [recentlyViewed]);
 
-  // Listen for cross-tab settings changes
+  // Listen for cross-tab or local settings changes
   useEffect(() => {
     const handler = () => {
       const stored = localStorage.getItem('etz_settings');
@@ -143,7 +184,11 @@ export function AppProvider({ children, initialProducts = [], initialSettings = 
       }
     };
     window.addEventListener('storage', handler);
-    return () => window.removeEventListener('storage', handler);
+    window.addEventListener('etz_settings_updated', handler);
+    return () => {
+      window.removeEventListener('storage', handler);
+      window.removeEventListener('etz_settings_updated', handler);
+    };
   }, []);
 
   const addToCart = useCallback((product: Product) => {

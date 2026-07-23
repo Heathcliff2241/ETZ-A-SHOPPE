@@ -5,19 +5,24 @@ import { motion } from 'motion/react';
 import { Check } from 'lucide-react';
 import { Order } from '../types';
 
+import { useApp } from '../providers/AppProvider';
+
 interface OrderConfirmationProps {
   lastSubmittedOrder: Order | null;
-  shopGcash: string;
+  shopGcash?: string;
   shopGcashName?: string;
   onNavigate: (page: string, category?: any) => void;
 }
 
 export default function OrderConfirmation({
   lastSubmittedOrder,
-  shopGcash,
-  shopGcashName,
+  shopGcash: propGcash,
+  shopGcashName: propGcashName,
   onNavigate
 }: OrderConfirmationProps) {
+  const { settings } = useApp();
+  const shopGcash = propGcash || settings.shopGcash;
+  const shopGcashName = propGcashName || settings.shopGcashName;
   return (
     <div className="max-w-2xl mx-auto px-4 py-10 w-full">
       <div className="bg-white border border-border p-8 sm:p-12 rounded-3xl space-y-8 text-center shadow-[0_1px_3px_rgba(0,0,0,0.01)]">

@@ -122,12 +122,32 @@ adminRouter.post('/verify-otp', async (req: Request, res: Response) => {
 });
 
 // ── Get Public Shop Settings ──────────────────────────────────────────────────
-adminRouter.get('/public-settings', (_req: Request, res: Response) => {
+adminRouter.get('/public-settings', async (_req: Request, res: Response) => {
+  try {
+    if (sql) {
+      const rows = await sql`SELECT key, value FROM etz_settings`;
+      if (rows && Array.isArray(rows) && rows.length > 0) {
+        adminConfig.loadFromRows(rows as any);
+      }
+    }
+  } catch (err) {
+    console.warn('[settings] Failed to load settings from DB in public-settings route:', err);
+  }
   return res.json(adminConfig.getPublicConfig());
 });
 
 // ── Get Admin Settings (Protected) ───────────────────────────────────────────
-adminRouter.get('/settings', requireAdmin, (_req: Request, res: Response) => {
+adminRouter.get('/settings', requireAdmin, async (_req: Request, res: Response) => {
+  try {
+    if (sql) {
+      const rows = await sql`SELECT key, value FROM etz_settings`;
+      if (rows && Array.isArray(rows) && rows.length > 0) {
+        adminConfig.loadFromRows(rows as any);
+      }
+    }
+  } catch (err) {
+    console.warn('[settings] Failed to load settings from DB in admin settings route:', err);
+  }
   return res.json(adminConfig.getAllConfig());
 });
 

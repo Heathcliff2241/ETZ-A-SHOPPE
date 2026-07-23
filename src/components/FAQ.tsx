@@ -4,11 +4,15 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { HelpCircle } from 'lucide-react';
 
+import { useApp } from '../providers/AppProvider';
+
 interface FAQProps {
   onNavigate: (page: string) => void;
 }
 
 export default function FAQ({ onNavigate }: FAQProps) {
+  const { settings } = useApp();
+
   return (
     <div
       className="max-w-3xl mx-auto px-4 py-10 w-full space-y-8"
@@ -72,7 +76,7 @@ export default function FAQ({ onNavigate }: FAQProps) {
             <span>What payment methods do you accept?</span>
           </h3>
           <p className="text-xs sm:text-sm text-text-secondary leading-relaxed pl-7">
-            We accept <strong>GCash mobile transfer</strong> directly to our store number. We also accept cash payments on local pickup or delivery inside Loong, Tabogon.
+            We accept <strong>GCash mobile transfer</strong> directly to our store account (<strong>{settings.shopGcash}</strong> {settings.shopGcashName ? `[${settings.shopGcashName}]` : ''}). We also accept cash payments on local pickup or delivery.
           </p>
         </div>
 
@@ -85,7 +89,7 @@ export default function FAQ({ onNavigate }: FAQProps) {
             <span>Where do you deliver, and how much?</span>
           </h3>
           <p className="text-xs sm:text-sm text-text-secondary leading-relaxed pl-7">
-            We deliver across Tabogon and neighboring towns in Cebu. Shipping rates typically depend on distance and are organized directly over the phone or messenger. Local pickup at Loong, Tabogon is completely free!
+            We deliver locally and nationwide. Shipping rates typically depend on distance and are organized directly over phone call ({settings.shopPhone}) or messenger. Local pickup at {settings.shopAddress} is completely free!
           </p>
         </div>
       </div>

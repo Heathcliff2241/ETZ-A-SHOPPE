@@ -5,6 +5,8 @@ import { motion } from 'motion/react';
 import { Loader2 } from 'lucide-react';
 import { CartItem } from '../types';
 
+import { useApp } from '../providers/AppProvider';
+
 interface CheckoutProps {
   cart: CartItem[];
   fullName: string;
@@ -23,7 +25,7 @@ interface CheckoutProps {
   setNote: (val: string) => void;
   paymentMethod: 'gcash' | 'cash';
   setPaymentMethod: (val: 'gcash' | 'cash') => void;
-  shopGcash: string;
+  shopGcash?: string;
   shopGcashName?: string;
   isOrdering?: boolean;
   handlePlaceOrder: (e: React.FormEvent) => void;
@@ -48,12 +50,15 @@ export default function Checkout({
   setNote,
   paymentMethod,
   setPaymentMethod,
-  shopGcash,
-  shopGcashName = 'Cesar E.',
+  shopGcash: propGcash,
+  shopGcashName: propGcashName,
   isOrdering = false,
   handlePlaceOrder,
   onNavigate
 }: CheckoutProps) {
+  const { settings } = useApp();
+  const shopGcash = propGcash || settings.shopGcash;
+  const shopGcashName = propGcashName || settings.shopGcashName;
   const [copied, setCopied] = React.useState(false);
   const subtotal = cart.reduce((acc, item) => acc + item.product.price, 0);
 
