@@ -60,7 +60,7 @@ export default function Home({
         />
         {/* Desktop Overlay */}
         <img
-          src="/images/hero2-overlay.webp"
+          src="/images/hero2-overlay.png"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none hidden sm:block"
