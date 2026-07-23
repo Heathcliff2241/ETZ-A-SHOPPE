@@ -362,6 +362,6 @@ productsRouter.delete('/:id', requireAdmin, asyncHandler(async (req: Request, re
     return res.json({ ok: true });
   } catch (error) {
     console.warn('[products] Failed to delete product.', error);
-    return res.status(503).json({ error: 'Product storage is currently unavailable.' });
+    return res.status(500).json({ error: error instanceof Error ? error.message : 'Failed to delete product.' });
   }
 }));

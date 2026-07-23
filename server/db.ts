@@ -122,7 +122,7 @@ const fallbackProducts = [
 
 // Check database availability
 export function isDbAvailable() {
-  return Boolean(process.env.DATABASE_URL && sqlInstance);
+  return Boolean(sqlInstance);
 }
 
 if (!sqlInstance) {
