@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const categoryTitle = product.category.charAt(0).toUpperCase() + product.category.slice(1);
-  const mainImage = product.images[0] || '/images/hero2.webp';
+  const mainImage = product.images[0] || '/images/hero2.png';
 
   return {
     title: `${product.name} — ₱${product.price.toLocaleString()} | ETZ A SHOPPE`,

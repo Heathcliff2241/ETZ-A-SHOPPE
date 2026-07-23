@@ -35,7 +35,7 @@ const redesignedReturn = `  return (
                 {/* Background Image with Scrim */}
                 <div className="absolute inset-0 z-0">
                   <img
-                    src="/src/assets/images/hero_fullbleed.webp"
+                    src="/src/assets/images/hero_fullbleed.png"
                     alt="ETZ A Shoppe flatlay vintage garments"
                     className="w-full h-full object-cover scale-102 filter brightness-[0.4] contrast-[1.05]"
                   />

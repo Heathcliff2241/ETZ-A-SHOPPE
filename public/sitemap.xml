@@ -5,7 +5,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://etz-shop.vercel.app/</loc>
+    <loc>https://etzashoppe.com/</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -13,7 +13,7 @@
 
   <!-- Shop / Catalog -->
   <url>
-    <loc>https://etz-shop.vercel.app/#shop</loc>
+    <loc>https://etzashoppe.com/#shop</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
@@ -21,43 +21,43 @@
 
   <!-- Categories -->
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=mens</loc>
+    <loc>https://etzashoppe.com/#shop?category=mens</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=womens</loc>
+    <loc>https://etzashoppe.com/#shop?category=womens</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=kids</loc>
+    <loc>https://etzashoppe.com/#shop?category=kids</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=accessories</loc>
+    <loc>https://etzashoppe.com/#shop?category=accessories</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=jewelry</loc>
+    <loc>https://etzashoppe.com/#shop?category=jewelry</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=perfumes</loc>
+    <loc>https://etzashoppe.com/#shop?category=perfumes</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#shop?category=others</loc>
+    <loc>https://etzashoppe.com/#shop?category=others</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
@@ -65,7 +65,7 @@
 
   <!-- How It Works -->
   <url>
-    <loc>https://etz-shop.vercel.app/#how-it-works</loc>
+    <loc>https://etzashoppe.com/#how-it-works</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -73,7 +73,7 @@
 
   <!-- About -->
   <url>
-    <loc>https://etz-shop.vercel.app/#about</loc>
+    <loc>https://etzashoppe.com/#about</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -81,7 +81,7 @@
 
   <!-- FAQ -->
   <url>
-    <loc>https://etz-shop.vercel.app/#faq</loc>
+    <loc>https://etzashoppe.com/#faq</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -89,7 +89,7 @@
 
   <!-- Contact -->
   <url>
-    <loc>https://etz-shop.vercel.app/#contact</loc>
+    <loc>https://etzashoppe.com/#contact</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -97,16 +97,17 @@
 
   <!-- Legal -->
   <url>
-    <loc>https://etz-shop.vercel.app/#privacy</loc>
+    <loc>https://etzashoppe.com/#privacy</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://etz-shop.vercel.app/#terms</loc>
+    <loc>https://etzashoppe.com/#terms</loc>
     <lastmod>2026-07-22</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
 </urlset>
+

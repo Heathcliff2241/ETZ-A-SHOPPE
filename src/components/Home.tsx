@@ -32,13 +32,13 @@ export default function Home({
         <div className="absolute inset-0 z-0">
           {/* Mobile Background */}
           <img
-            src="/images/hero2mobile.webp"
+            src="/images/hero2mobile.png"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover sm:hidden block"
           />
           {/* Desktop Background */}
           <img
-            src="/images/hero2.webp"
+            src="/images/hero2.png"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover hidden sm:block"
           />
@@ -53,7 +53,7 @@ export default function Home({
             the content wrapper for why that comparison now works correctly. */}
         {/* Mobile Overlay */}
         <img
-          src="/images/hero2mobile-overlay.webp"
+          src="/images/hero2mobile-overlay.png"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none sm:hidden block"
@@ -178,11 +178,11 @@ export default function Home({
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Mens Curated */}
             <div
               onClick={() => onNavigate('shop', 'mens')}
-              className="md:col-span-2 group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/9] md:aspect-[21/9]"
+              className="md:col-span-2 md:row-span-2 group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:min-h-[560px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
@@ -207,7 +207,7 @@ export default function Home({
             {/* Womens */}
             <div
               onClick={() => onNavigate('shop', 'womens')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative min-h-[300px] md:min-h-0 md:h-full"
+              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:aspect-[16/10] md:min-h-[280px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
@@ -232,7 +232,7 @@ export default function Home({
             {/* Kids */}
             <div
               onClick={() => onNavigate('shop', 'kids')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative min-h-[300px] md:min-h-0 md:h-full"
+              className="md:col-span-1 md:row-span-2 group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:min-h-[560px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
@@ -257,7 +257,7 @@ export default function Home({
             {/* Accessories */}
             <div
               onClick={() => onNavigate('shop', 'accessories')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative min-h-[280px] md:min-h-0 md:h-full"
+              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:min-h-[280px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
@@ -282,7 +282,7 @@ export default function Home({
             {/* Jewelry */}
             <div
               onClick={() => onNavigate('shop', 'jewelry')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative min-h-[280px] md:min-h-0 md:h-full"
+              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:min-h-[280px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
@@ -307,7 +307,7 @@ export default function Home({
             {/* Perfumes & Colognes */}
             <div
               onClick={() => onNavigate('shop', 'perfumes')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative min-h-[280px] md:min-h-0 md:h-full"
+              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:col-span-2 md:min-h-[280px]"
             >
               <div className="absolute inset-0 w-full h-full overflow-hidden">
                 <img
