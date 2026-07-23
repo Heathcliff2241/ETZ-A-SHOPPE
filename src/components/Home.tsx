@@ -32,13 +32,13 @@ export default function Home({
         <div className="absolute inset-0 z-0">
           {/* Mobile Background */}
           <img
-            src="/images/hero2mobile.png"
+            src="/images/hero2mobile.webp"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover sm:hidden block"
           />
           {/* Desktop Background */}
           <img
-            src="/images/hero2.png"
+            src="/images/hero2.webp"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover hidden sm:block"
           />
@@ -53,14 +53,14 @@ export default function Home({
             the content wrapper for why that comparison now works correctly. */}
         {/* Mobile Overlay */}
         <img
-          src="/images/hero2mobile-overlay.png"
+          src="/images/hero2mobile-overlay.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none sm:hidden block"
         />
         {/* Desktop Overlay */}
         <img
-          src="/images/hero2-overlay.png"
+          src="/images/hero2-overlay.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none hidden sm:block"
