@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from '@phosphor-icons/react';
 import { Product, Category } from '../types';
 
 interface HomeProps {
@@ -13,6 +13,87 @@ interface HomeProps {
   recentlyViewed: string[];
   handleProductClick: (product: Product) => void;
   renderRecentlyViewedSection: () => React.ReactNode;
+}
+
+// Category catalogue data — pulling this out of JSX means adding a 7th category,
+// reordering, or re-tagging a lot number is a one-line change, not a copy-paste
+// of a 40-line block. Each entry also carries its own aspect ratio, which is what
+// drives the masonry stagger below (no manual row-span math to keep in sync).
+type CategoryCard = {
+  id: Category;
+  lotNo: string;
+  title: string;
+  blurb: string;
+  image: string;
+  imageAlt: string;
+  aspect: string;
+  isStock?: boolean; // flags placeholder stock photography still needing real product shots
+};
+
+const categoryCards: CategoryCard[] = [
+  {
+    id: 'womens',
+    lotNo: 'LOT 02',
+    title: "Women's Section",
+    blurb: 'Timeless dresses, organic cotton tops & seasonal fits.',
+    image: '/images/womens_floral_dress_1783176824055.jpg',
+    imageAlt: 'Floral secondhand dress from the women\'s rack, hand-checked and flat-measured',
+    aspect: 'aspect-[4/5]',
+  },
+  {
+    id: 'kids',
+    lotNo: 'LOT 03',
+    title: "Kids' Clothing",
+    blurb: 'Sturdy, soft fabrics, denim overalls & comfortable garments.',
+    image: '/images/kids_denim_overalls_1783176838795.jpg',
+    imageAlt: 'Kids denim overalls folded and displayed on the rack',
+    aspect: 'aspect-square',
+  },
+  {
+    id: 'accessories',
+    lotNo: 'LOT 04',
+    title: 'Accessories',
+    blurb: 'Genuine leather messengers, woven bags & handcrafted details.',
+    image: '/images/vintage_leather_bag_1783176854555.jpg',
+    imageAlt: 'Vintage genuine leather messenger bag, front view',
+    aspect: 'aspect-[4/3]',
+  },
+  {
+    id: 'jewelry',
+    lotNo: 'LOT 05',
+    title: 'Jewelry',
+    blurb: 'Vintage rings, brass pendants & artisan accessories.',
+    // TODO(Cesar): still stock photography — swap for a real ETZ jewelry shot before launch
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Assorted vintage rings and brass pendants laid flat',
+    aspect: 'aspect-[3/4]',
+    isStock: true,
+  },
+  {
+    id: 'perfumes',
+    lotNo: 'LOT 06',
+    title: 'Perfumes',
+    blurb: 'Botanical colognes, sandalwood oils & luxury scents.',
+    // TODO(Cesar): still stock photography — swap for a real ETZ perfume shot before launch
+    image: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=800&q=80',
+    imageAlt: 'Perfume bottles arranged on a wooden shelf',
+    aspect: 'aspect-[5/4]',
+    isStock: true,
+  },
+];
+
+// Small hang-tag chip styled after an actual secondhand clothing price tag — the
+// one recurring visual device tying the grid together instead of a repeated
+// mono "eyebrow" label sitting above every card.
+function LotTag({ lotNo }: { lotNo: string }) {
+  return (
+    <span
+      className="absolute -top-2 -left-2 z-10 rotate-[-7deg] bg-[#F4EFE6] text-[#3D2B1F] text-[10px] font-bold tracking-[0.08em] uppercase px-3 py-1 shadow-md border border-[#3D2B1F]/15 font-mono"
+      style={{ clipPath: 'polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%)' }}
+    >
+      <span className="pl-1">{lotNo}</span>
+    </span>
+  );
 }
 
 export default function Home({
@@ -32,13 +113,13 @@ export default function Home({
         <div className="absolute inset-0 z-0">
           {/* Mobile Background */}
           <img
-            src="/images/hero2mobile.png"
+            src="/images/hero2mobile.webp"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover sm:hidden block"
           />
           {/* Desktop Background */}
           <img
-            src="/images/hero2.png"
+            src="/images/hero2.webp"
             alt="ETZ Lookbook Cover Model"
             className="absolute inset-0 w-full h-full object-cover hidden sm:block"
           />
@@ -53,14 +134,14 @@ export default function Home({
             the content wrapper for why that comparison now works correctly. */}
         {/* Mobile Overlay */}
         <img
-          src="/images/hero2mobile-overlay.png"
+          src="/images/hero2mobile-overlay.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none sm:hidden block"
         />
         {/* Desktop Overlay */}
         <img
-          src="/images/hero2-overlay.png"
+          src="/images/hero2-overlay.webp"
           alt=""
           aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover z-20 opacity-100 pointer-events-none hidden sm:block"
@@ -108,15 +189,15 @@ export default function Home({
               >
                 <button
                   onClick={() => onNavigate('shop', 'all')}
-                  className="group relative bg-white hover:bg-neutral-100 text-text-primary font-semibold tracking-[0.1em] px-8 py-4 transition-all duration-300 ease-out active:scale-[0.98] cursor-pointer text-[11px] uppercase flex items-center justify-center gap-3 shadow-2xl rounded-none border-none"
+                  className="group relative bg-white hover:bg-neutral-100 text-text-primary font-semibold tracking-[0.1em] px-8 py-4 transition-all duration-300 ease-out active:scale-[0.98] cursor-pointer text-[11px] uppercase flex items-center justify-center gap-3 shadow-2xl rounded-none border-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <span>Shop the Rack</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
+                  <ArrowRight weight="light" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 shrink-0" />
                 </button>
 
                 <button
                   onClick={() => onNavigate('how-it-works')}
-                  className="group flex items-center justify-center gap-2 text-white hover:text-accent-warm text-[11px] tracking-[0.1em] uppercase font-semibold transition-all duration-300 cursor-pointer bg-transparent border border-white/20 hover:border-white/50 px-8 py-4 rounded-none"
+                  className="group flex items-center justify-center gap-2 text-white hover:text-accent-warm text-[11px] tracking-[0.1em] uppercase font-semibold transition-all duration-300 cursor-pointer bg-transparent border border-white/20 hover:border-white/50 px-8 py-4 rounded-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                 >
                   <span>How It Works</span>
                 </button>
@@ -160,174 +241,81 @@ export default function Home({
           </div>
         </div>
 
-        {/* Shop By Category Bento Grid */}
+        {/* Shop By Category — Asymmetric Archive Layout
+            Replaces the 6-tile bento grid. Structure:
+            1. A full-width "featured lot" banner for Men's Apparel (split image/text panel,
+               not another overlay-gradient card) — this is the one deliberately bold move.
+            2. The remaining five categories flow into a CSS-column masonry, each with its
+               own aspect ratio so heights fall unevenly instead of locking to a grid. */}
         <div className="space-y-10">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 border-b border-border/80 pb-6">
-            <div className="space-y-1">
-              <span className="text-[10px] tracking-[0.25em] uppercase font-semibold text-accent font-mono">[ COLLECTIONS ]</span>
-              <h2 className="font-heading text-4xl sm:text-5xl font-light text-text-primary tracking-tight leading-none">
-                Find your size, <span className="italic font-normal text-accent">your style</span>
-              </h2>
-            </div>
+            <h2 className="font-heading text-4xl sm:text-5xl font-light text-text-primary tracking-tight leading-none">
+              Find your size, <span className="italic font-normal text-accent">your style</span>
+            </h2>
             <button
               onClick={() => onNavigate('shop', 'all')}
-              className="text-xs font-semibold text-accent hover:text-accent-hover flex items-center gap-1.5 group cursor-pointer border-none bg-transparent font-sans tracking-wider uppercase"
+              className="text-xs font-semibold text-accent hover:text-accent-hover flex items-center gap-1.5 group cursor-pointer border-none bg-transparent font-sans tracking-wider uppercase focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent rounded-sm"
             >
               <span>Explore All</span>
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <ArrowRight weight="light" className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            {/* Mens Curated */}
-            <div
-              onClick={() => onNavigate('shop', 'mens')}
-              className="md:col-span-2 md:row-span-2 group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:min-h-[560px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src="/images/mens_vintage_jacket_1783176811459.jpg"
-                  alt="Men's collection"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">01 // CURATED ARCHIVE</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Men's Apparel</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Vintage outerwear, heavy knits, denim & custom utility wear.</p>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
+          {/* Featured lot — Men's Apparel */}
+          <button
+            onClick={() => onNavigate('shop', 'mens')}
+            className="group w-full text-left grid grid-cols-1 md:grid-cols-5 bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-shadow duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          >
+            <div className="relative md:col-span-3 aspect-[16/10] md:aspect-auto overflow-hidden">
+              <LotTag lotNo="LOT 01" />
+              <img
+                src="/images/mens_vintage_jacket_1783176811459.jpg"
+                alt="Vintage men's jacket hanging on the rack, front view"
+                className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
+              />
             </div>
+            <div className="md:col-span-2 flex flex-col justify-center gap-4 p-8 sm:p-10">
+              <h3 className="font-sans text-3xl sm:text-4xl font-bold tracking-tight text-text-primary leading-none">
+                Men's Apparel
+              </h3>
+              <p className="text-sm text-text-secondary leading-relaxed font-light max-w-sm">
+                Vintage outerwear, heavy knits, denim & custom utility wear — the deepest rack in the shop, restocked weekly.
+              </p>
+              <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.1em] text-accent mt-2">
+                Shop the archive
+                <ArrowUpRight weight="light" className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              </span>
+            </div>
+          </button>
 
-            {/* Womens */}
-            <div
-              onClick={() => onNavigate('shop', 'womens')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:aspect-[16/10] md:min-h-[280px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
+          {/* Remaining categories — masonry flow, uneven heights by design */}
+          <div className="columns-1 sm:columns-2 lg:columns-3 gap-6 [&>*]:mb-6">
+            {categoryCards.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => onNavigate('shop', cat.id)}
+                className={`group relative block w-full text-left break-inside-avoid bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-shadow duration-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${cat.aspect}`}
+              >
+                <LotTag lotNo={cat.lotNo} />
                 <img
-                  src="/images/womens_floral_dress_1783176824055.jpg"
-                  alt="Women's collection"
+                  src={cat.image}
+                  alt={cat.imageAlt}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">02 // LINEN & SILK</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Women's Section</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Timeless dresses, organic cotton tops & seasonal fits.</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent" />
+                <div className="absolute bottom-5 left-5 right-5 text-white flex justify-between items-end">
+                  <div className="space-y-1">
+                    <h4 className="font-sans text-xl sm:text-2xl font-bold tracking-tight text-white leading-none">
+                      {cat.title}
+                    </h4>
+                    <p className="text-xs text-white/70 font-light mt-1 max-w-[220px]">{cat.blurb}</p>
+                  </div>
+                  <span className="w-9 h-9 shrink-0 rounded-full border border-white/25 flex items-center justify-center bg-white/5 opacity-70 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300">
+                    <ArrowUpRight weight="light" className="w-4 h-4 text-white" />
+                  </span>
                 </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Kids */}
-            <div
-              onClick={() => onNavigate('shop', 'kids')}
-              className="md:col-span-1 md:row-span-2 group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/12] md:min-h-[560px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src="/images/kids_denim_overalls_1783176838795.jpg"
-                  alt="Kids clothing"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">03 // PLAYPROOF</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Kids' Clothing</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Sturdy, soft fabrics, denim overalls & comfortable garments.</p>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Accessories */}
-            <div
-              onClick={() => onNavigate('shop', 'accessories')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:min-h-[280px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src="/images/vintage_leather_bag_1783176854555.jpg"
-                  alt="Accessories"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">04 // FINE DETAILS</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Accessories</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Genuine leather messengers, woven bags & handcrafted details.</p>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Jewelry */}
-            <div
-              onClick={() => onNavigate('shop', 'jewelry')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:min-h-[280px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80"
-                  alt="Jewelry"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">05 // GEMSTONES & METALS</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Jewelry</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Vintage rings, brass pendants & artisan accessories.</p>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
-
-            {/* Perfumes & Colognes */}
-            <div
-              onClick={() => onNavigate('shop', 'perfumes')}
-              className="group cursor-pointer bg-white border border-border/60 rounded-xl overflow-hidden shadow-xs hover:shadow-xl transition-all duration-500 relative aspect-[16/10] md:col-span-2 md:min-h-[280px]"
-            >
-              <div className="absolute inset-0 w-full h-full overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80"
-                  alt="Perfumes"
-                  className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 transition-opacity duration-300 group-hover:opacity-90" />
-              </div>
-              <div className="absolute bottom-6 left-6 right-6 text-white flex justify-between items-end">
-                <div className="space-y-1">
-                  <span className="text-[9px] font-mono tracking-[0.25em] uppercase text-accent-warm font-bold">06 // FRAGRANCE</span>
-                  <h4 className="font-sans text-2xl sm:text-3xl font-bold tracking-tight text-white leading-none">Perfumes</h4>
-                  <p className="text-xs text-white/70 font-light mt-1">Botanical colognes, sandalwood oils & luxury scents.</p>
-                </div>
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-2 transition-all duration-300">
-                  <ArrowRight className="w-4 h-4 text-white" />
-                </div>
-              </div>
-            </div>
+              </button>
+            ))}
           </div>
         </div>
 
@@ -387,7 +375,7 @@ export default function Home({
           <div className="w-full lg:w-auto shrink-0 relative z-10">
             <button
               onClick={() => onNavigate('shop', 'all')}
-              className="w-full lg:w-auto bg-[#2D6A4F] hover:bg-[#347c5b] text-white font-semibold tracking-[0.1em] px-10 py-4 transition-all duration-300 active:scale-[0.98] cursor-pointer text-[11px] uppercase rounded-none border border-white/15 hover:border-white/30"
+              className="w-full lg:w-auto bg-[#2D6A4F] hover:bg-[#347c5b] text-white font-semibold tracking-[0.1em] px-10 py-4 transition-all duration-300 active:scale-[0.98] cursor-pointer text-[11px] uppercase rounded-none border border-white/15 hover:border-white/30 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Start shopping the collection
             </button>

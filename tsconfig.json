@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "allowJs": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "paths": {
       "@/*": [
         "./*"
@@ -24,11 +24,18 @@
     "noEmit": true,
     "strict": false,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
+    "server/**/*",
     "src/**/*",
-    "server/**/*"
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",

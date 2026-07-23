@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     siteName: 'ETZ A SHOPPE',
     title: 'ETZ A SHOPPE — Curated Thrift & Vintage Marketplace',
     description: 'Curated thrift & vintage clothing marketplace in Tagbilaran City, Bohol.',
-    images: [{ url: '/images/hero2.png', width: 1200, height: 630 }],
+    images: [{ url: '/images/hero2.webp', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ETZ A SHOPPE',
     description: 'Curated thrift & vintage clothing marketplace in Tagbilaran City, Bohol.',
-    images: ['/images/hero2.png'],
+    images: ['/images/hero2.webp'],
   },
   robots: { index: true, follow: true },
   metadataBase: new URL(
